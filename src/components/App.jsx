@@ -1,21 +1,30 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import UserCard from './UserCard';
+import Followers from './Followers';
+import styled from 'styled-components';
+import '../index.css';
 
-
+const UserList = styled.div`
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-between;
+  align-items: space-between;
+  justify-content: center;
+ 
+`
 
 export default function App() {
 
-    const [userData, setUserData] = useState()
-    const [followers, setFollowers] = useState()
+    const [userData, setUserData] = useState([])
+    const [followers, setFollowers] = useState([])
     
         useEffect(() => {
           fetchUser()
-            return () => {
-                console.log('cleaned up')
-            };
         }, [])
-    
-    
-    
+        
       const fetchUser = () => {
         const urls = [
           'https://api.github.com/users/nezlobnaya',
@@ -25,10 +34,7 @@ export default function App() {
             .then(res => res.json())
             .catch(err => console.error('Request failed', err))
         ))
-        .then(data => this.setState({
-          userData: data[0],
-          followers: data[1]
-        }))
+        .then(data => setUserData(data[0]) || setFollowers(data[1]))
         
       }
     
@@ -56,12 +62,6 @@ export default function App() {
 
 
 
-    return (
-        <div>
-            <h1>GitHub UserCards</h1>
-        </div>
-    )
-}
 
 
 
