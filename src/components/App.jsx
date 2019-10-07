@@ -8,16 +8,12 @@ export default function App() {
     const [followers, setFollowers] = useState()
     
         useEffect(() => {
-            effect
+          fetchUser()
             return () => {
-                cleanup
+                console.log('cleaned up')
             };
-        }, [input])
+        }, [])
     
-      componentDidMount() {
-        console.log('In CDM')
-        this.fetchUser();
-      }
     
     
       const fetchUser = () => {
